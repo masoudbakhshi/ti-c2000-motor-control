@@ -6,7 +6,7 @@ Motor control projects based on the Texas Instruments C2000 F28388D microcontrol
 
 | Board | Description |
 |---|---|
-| TMDSCNCD28388D | F28388D controlCARD — C2000 dual-core MCU |
+| TMDSCNCD28388D | F28388D controlCARD, C2000 dual-core MCU |
 | TMDSHSECDOCK | HSEC180 controlCARD baseboard docking station |
 | BOOSTXL-3PHGANINV | 48V three-phase GaN inverter with shunt-based current sensing |
 
