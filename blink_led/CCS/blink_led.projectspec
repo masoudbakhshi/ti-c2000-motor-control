@@ -1,0 +1,95 @@
+<projectSpec>
+  <project
+        name="blink_led"
+        device="TMS320F28388D"
+        cgtVersion="25.11.0.LTS"
+        products="sysconfig;C2000WARE"
+        outputFormat="ELF"
+        launchWizard="False"
+        linkerCommandFile=""
+        enableSysConfigTool="true"
+        sysConfigBuildOptions="--product ${C2000WARE_ROOT}/.metadata/sdk.json"
+        postBuildStep="
+           echo &quot;Build complete: blink_led for TMDSCNCD28388D&quot;
+        "
+        >
+
+    <!--
+         CPU1_RAM   : load and run entirely from on-chip SARAM — fastest
+                      iteration cycle during development and debug.
+         CPU1_FLASH : relocate code to internal Flash — suitable for
+                      standalone operation without a debug probe.
+    -->
+
+    <configuration
+        name="CPU1_RAM"
+        compilerBuildOptions="
+            --opt_level=off
+            -I${C2000WARE_ROOT}
+            -v28 -ml -mt
+            --cla_support=cla2
+            --float_support=fpu64
+            --tmu_support=tmu0
+            --define=RAM
+            --define=generic_ram_lnk
+            --define=DEBUG
+            --define=CPU1
+            --gen_func_subsections=on
+            --diag_warning=225
+            --diag_suppress=10063"
+        linkerBuildOptions="
+            --entry_point code_start
+            --stack_size=0x3F8
+            --heap_size=0x200
+            -i${C2000WARE_ROOT}
+            -i${PROJECT_BUILD_DIR}/syscfg
+            -lc2000ware_libraries.cmd.genlibs
+            -lboard.cmd.genlibs
+            -ldevice_cmd.cmd.genlibs
+            --define=generic_ram_lnk"
+        />
+
+    <configuration
+        name="CPU1_FLASH"
+        compilerBuildOptions="
+            --opt_level=off
+            -I${C2000WARE_ROOT}
+            --define=_FLASH
+            --define=generic_flash_lnk
+            -v28 -ml -mt
+            --cla_support=cla2
+            --float_support=fpu64
+            --tmu_support=tmu0
+            --define=DEBUG
+            --define=CPU1
+            --gen_func_subsections=on
+            --diag_warning=225
+            --diag_suppress=10063"
+        linkerBuildOptions="
+            --entry_point code_start
+            --stack_size=0x3F8
+            --heap_size=0x200
+            --define=_FLASH
+            -i${C2000WARE_ROOT}
+            -i${PROJECT_BUILD_DIR}/syscfg
+            -lc2000ware_libraries.cmd.genlibs
+            -lboard.cmd.genlibs
+            -ldevice_cmd.cmd.genlibs
+            --define=generic_flash_lnk"
+        />
+
+    <!--
+         C2000WARE_ROOT resolves to the C2000Ware installation root.
+         If C2000Ware is not installed at the default path, update the
+         value below to match your local installation.
+    -->
+    <pathVariable name="C2000WARE_ROOT"  path="C:/ti/c2000/C2000Ware_26_01_00_00"      scope="project" />
+    <pathVariable name="CLB_SYSCFG_ROOT" path="${C2000WARE_ROOT}/utilities/clb_tool/clb_syscfg/" scope="project" />
+
+    <buildVariable name="GENERATE_DIAGRAM" value="0" scope="project" />
+
+    <file action="copy" path="../main.c"          targetDirectory="" />
+    <file action="copy" path="../blink_led.syscfg" targetDirectory="" />
+
+  </project>
+</projectSpec>

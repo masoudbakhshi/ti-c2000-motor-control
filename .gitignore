@@ -1,0 +1,32 @@
+# ── IDE & tooling ────────────────────────────────────────────────────────────
+.claude/
+.vscode/
+.mcp.json
+CLAUDE.md
+
+# ── CCS auto-generated project files (recreated on import) ───────────────────
+**/.ccsproject
+**/.cproject
+**/.project
+**/.clangd
+**/.settings/
+
+# ── CCS build output (auto-generated, never needed in source control) ────────
+**/CPU1_RAM/
+**/CPU1_FLASH/
+**/targetConfigs/
+**/.clangd/
+
+# ── Compiled and linked artifacts ────────────────────────────────────────────
+*.out
+*.obj
+*.map
+*.d
+*.opt
+*.genlibs
+makefile
+*.mk
+*.xml
+
+# ── SysConfig generated sources (rebuilt automatically at every build) ────────
+**/syscfg/
