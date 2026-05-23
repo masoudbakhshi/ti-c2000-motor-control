@@ -51,11 +51,9 @@ SysConfig processes `blink_led.syscfg` at build time and generates the following
 ### 1. Import the project into CCS
 
 1. Open Code Composer Studio and select your workspace.
-2. Go to **File → Import → C/C++ → CCS Projects**.
-3. Click **Browse** and navigate to the `blink_led/CCS/` folder.
-4. Select `blink_led` and click **Finish**.
-
-CCS will copy the source files and register the SysConfig build step automatically.
+2. Go to **File → Import Projects...**.
+3. Click **Browse** and navigate to the `blink_led` folder.
+4. Select `blink_led` from the discovered list and click **Finish**.
 
 ### 2. Verify the C2000Ware path
 
@@ -117,10 +115,3 @@ This project is intentionally minimal. Common next steps:
 - **Use a timer interrupt**: Replace the blocking `DEVICE_DELAY_US()` delay with a CPU timer ISR to free the main loop for other work.
 - **Add a ePWM breath effect**: Drive the LED through an ePWM channel to vary brightness using duty-cycle modulation.
 
----
-
-## License
-
-Copyright (C) 2024 Texas Instruments Incorporated — http://www.ti.com
-
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the conditions in the source file header are met. See `main.c` for the full license text.
