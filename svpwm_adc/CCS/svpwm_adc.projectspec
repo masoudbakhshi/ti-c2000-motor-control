@@ -1,0 +1,87 @@
+<projectSpec>
+  <project
+        name="svpwm_adc"
+        device="TMS320F28388D"
+        cgtVersion="25.11.0.LTS"
+        products="sysconfig;C2000WARE"
+        outputFormat="ELF"
+        launchWizard="False"
+        linkerCommandFile=""
+        enableSysConfigTool="true"
+        sysConfigBuildOptions="--product ${C2000WARE_ROOT}/.metadata/sdk.json"
+        postBuildStep="
+           echo &quot;Build complete: svpwm_adc for TMDSCNCD28388D&quot;
+        "
+        >
+
+    <configuration
+        name="CPU1_RAM"
+        compilerBuildOptions="
+            --opt_level=off
+            -I${C2000WARE_ROOT}
+            -v28 -ml -mt
+            --cla_support=cla2
+            --float_support=fpu64
+            --idiv_support=idiv0
+            --tmu_support=tmu0
+            --vcu_support=vcrc
+            --define=RAM
+            --define=generic_ram_lnk
+            --define=DEBUG
+            --define=CPU1
+            --gen_func_subsections=on
+            --diag_warning=225
+            --diag_suppress=10063"
+        linkerBuildOptions="
+            --entry_point code_start
+            --stack_size=0x3F8
+            --heap_size=0x400
+            -i${C2000WARE_ROOT}
+            -i${PROJECT_BUILD_DIR}/syscfg
+            -lc2000ware_libraries.cmd.genlibs
+            -lboard.cmd.genlibs
+            -ldevice_cmd.cmd.genlibs
+            --define=generic_ram_lnk"
+        />
+
+    <configuration
+        name="CPU1_FLASH"
+        compilerBuildOptions="
+            --opt_level=off
+            -I${C2000WARE_ROOT}
+            -v28 -ml -mt
+            --cla_support=cla2
+            --float_support=fpu64
+            --idiv_support=idiv0
+            --tmu_support=tmu0
+            --vcu_support=vcrc
+            --define=_FLASH
+            --define=generic_flash_lnk
+            --define=DEBUG
+            --define=CPU1
+            --gen_func_subsections=on
+            --diag_warning=225
+            --diag_suppress=10063"
+        linkerBuildOptions="
+            --entry_point code_start
+            --stack_size=0x3F8
+            --heap_size=0x400
+            --define=_FLASH
+            -i${C2000WARE_ROOT}
+            -i${PROJECT_BUILD_DIR}/syscfg
+            -lc2000ware_libraries.cmd.genlibs
+            -lboard.cmd.genlibs
+            -ldevice_cmd.cmd.genlibs
+            --define=generic_flash_lnk"
+        />
+
+    <pathVariable name="C2000WARE_ROOT"  path="C:/ti/c2000/C2000Ware_26_01_00_00"      scope="project" />
+    <pathVariable name="CLB_SYSCFG_ROOT" path="${C2000WARE_ROOT}/utilities/clb_tool/clb_syscfg/" scope="project" />
+
+    <buildVariable name="GENERATE_DIAGRAM" value="0" scope="project" />
+
+    <file action="copy" path="../main.c"            targetDirectory="" />
+    <file action="copy" path="../svpwm_adc.syscfg"  targetDirectory="" />
+
+  </project>
+</projectSpec>
