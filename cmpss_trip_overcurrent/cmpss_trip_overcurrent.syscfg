@@ -1,0 +1,153 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --board "/boards/TMDSCNCD28388D" --device "F2838x" --part "F2838x_337bga" --package "337bga" --context "CPU1" --product "C2000WARE@26.01.00.00"
+ * @v2CliArgs --board "/boards/TMDSCNCD28388D" --device "TMS320F28388D" --package "337bga" --context "CPU1" --product "C2000WARE@26.01.00.00"
+ * @versions {"tool":"1.27.1+4634"}
+ */
+
+/**
+ * Import the modules used in this configuration.
+ */
+const adc            = scripting.addModule("/driverlib/adc.js", {}, false);
+const adc1           = adc.addInstance();
+const cmpss          = scripting.addModule("/driverlib/cmpss.js", {}, false);
+const cmpss1         = cmpss.addInstance();
+const device_support = scripting.addModule("/driverlib/device_support.js");
+const epwm           = scripting.addModule("/driverlib/epwm.js", {}, false);
+const epwm1          = epwm.addInstance();
+const epwmxbar       = scripting.addModule("/driverlib/epwmxbar.js", {}, false);
+const epwmxbar1      = epwmxbar.addInstance();
+const memcfg         = scripting.addModule("/driverlib/memcfg.js");
+const sci            = scripting.addModule("/driverlib/sci.js", {}, false);
+const sci1           = sci.addInstance();
+const sysctl         = scripting.addModule("/driverlib/sysctl.js");
+const CMD            = scripting.addModule("/utilities/cmd_tool/cmd_syscfg/source/CMD");
+const CMD1           = CMD.addInstance();
+const CMD2           = CMD.addInstance();
+
+/**
+ * Write custom configuration values to the imported modules.
+ */
+adc1.$name              = "myADC0";
+adc1.adcClockPrescaler  = "ADC_CLK_DIV_4_0";
+adc1.interruptPulseMode = "ADC_PULSE_END_OF_CONV";
+adc1.enabledSOCs        = ["ADC_SOC_NUMBER0"];
+adc1.enabledInts        = ["ADC_INT_NUMBER1"];
+adc1.soc0Trigger        = "ADC_TRIGGER_EPWM1_SOCA";
+adc1.soc0SampleWindow   = 15;
+adc1.enableInterrupt1   = true;
+
+const divider10       = system.clockTree["EPWMCLKDIV"];
+divider10.divideValue = 1;
+
+cmpss1.$name            = "myCMPSS0";
+cmpss1.enableModule     = true;
+cmpss1.highCTRIPOUT     = "CMPSS_TRIPOUT_LATCH";
+cmpss1.highCTRIP        = "CMPSS_TRIP_LATCH";
+cmpss1.dacValHigh       = 3042;
+cmpss1.sampleWindowHigh = 32;
+cmpss1.thresholdHigh    = 30;
+cmpss1.initFilterHigh   = true;
+cmpss1.latchResetHigh   = true;
+cmpss1.lowCompInvert    = true;
+cmpss1.lowCTRIPOUT      = "CMPSS_TRIPOUT_LATCH";
+cmpss1.lowCTRIP         = "CMPSS_TRIP_LATCH";
+cmpss1.dacValLow        = 1054;
+cmpss1.sampleWindowLow  = 32;
+cmpss1.thresholdLow     = 30;
+cmpss1.initFilterLow    = true;
+cmpss1.latchResetLow    = true;
+
+epwm1.$name                                                      = "myEPWM0";
+epwm1.$hardware                                                  = system.deviceData.board.components.PWM_LOC1;
+epwm1.epwmTimebase_counterMode                                   = "EPWM_COUNTER_MODE_UP_DOWN";
+epwm1.epwmTimebase_period                                        = 5000;
+epwm1.epwmTimebase_hsClockDiv                                    = "EPWM_HSCLOCK_DIVIDER_1";
+epwm1.epwmTimebase_syncOutPulseMode                              = ["EPWM_SYNC_OUT_PULSE_ON_CNTR_ZERO"];
+epwm1.epwmActionQualifier_EPWM_AQ_OUTPUT_A_ON_TIMEBASE_UP_CMPA   = "EPWM_AQ_OUTPUT_HIGH";
+epwm1.epwmActionQualifier_EPWM_AQ_OUTPUT_A_ON_TIMEBASE_DOWN_CMPA = "EPWM_AQ_OUTPUT_LOW";
+epwm1.epwmDeadband_enableRED                                     = true;
+epwm1.epwmDeadband_delayRED                                      = 25;
+epwm1.epwmDeadband_enableFED                                     = true;
+epwm1.epwmDeadband_delayFED                                      = 25;
+epwm1.epwmDeadband_polarityFED                                   = "EPWM_DB_POLARITY_ACTIVE_LOW";
+epwm1.epwmEventTrigger_enableInterrupt                           = true;
+epwm1.epwmEventTrigger_EPWM_SOC_A_triggerEnable                  = true;
+epwm1.epwmEventTrigger_interruptSource                           = "EPWM_INT_TBCTR_ZERO";
+epwm1.epwmEventTrigger_interruptEventCount                       = "1";
+epwm1.epwmEventTrigger_EPWM_SOC_A_triggerSource                  = "EPWM_SOC_TBCTR_PERIOD";
+epwm1.epwmEventTrigger_EPWM_SOC_A_triggerEventPrescalar          = "1";
+
+epwmxbar1.$name     = "myEPWMXBAR0";
+epwmxbar1.muxesUsed = ["XBAR_MUX00","XBAR_MUX01"];
+
+memcfg.config_MEMCFG_SECT_LS6        = "CLA_prog";
+memcfg.init_MEMCFG_SECT_MSGCLA1TOCPU = true;
+memcfg.config_MEMCFG_SECT_LS7        = "CLA_data";
+memcfg.init_MEMCFG_SECT_MSGCPUTOCLA1 = true;
+
+sci1.$name                 = "mySCI0";
+sci1.useFifo               = false;
+sci1.useInterrupts         = false;
+sci1.sci.sci_rxPin.$assign = "hsecDigital.76";
+sci1.sci.sci_txPin.$assign = "hsecDigital.78";
+sci1.rxQual.$name          = "myGPIOQUAL0";
+sci1.txQual.$name          = "myGPIOQUAL1";
+
+CMD1.$name                         = "generic_ram_lnk";
+CMD1.sectionMemory_ramfunc         = ["RAMM0"];
+CMD1.sectionMemory_cinit           = ["RAMM0"];
+CMD1.sectionMemory_stack           = ["RAMM1"];
+CMD1.sectionMemory_init_array      = ["RAMM0"];
+CMD1.sectionMemory_bss             = ["RAMLS5"];
+CMD1.sectionMemory_data            = ["RAMGS0","RAMGS1"];
+CMD1.sectionMemory_switch          = ["RAMM0"];
+CMD1.sectionMemory_sysmem          = ["RAMLS5"];
+CMD1.sectionMemory_cla1Prog        = ["RAMLS6"];
+CMD1.sectionMemory_cla1ToCpuMsgRAM = ["CLATOCPU_MSGRAM"];
+CMD1.sectionMemory_text            = ["RAMGS2","RAMGS3","RAMLS0","RAMLS1","RAMLS2","RAMLS3","RAMLS4"];
+CMD1.sectionMemory_cpuToCla1MsgRAM = ["CPUTOCLA_MSGRAM"];
+CMD1.sectionMemory_const           = ["RAMGS4"];
+
+CMD2.$name                                = "generic_flash_lnk";
+CMD2.sectionAlignEnable_ramfunc           = true;
+CMD2.sectionAlignEnable_text              = true;
+CMD2.sectionAlignEnable_binit             = true;
+CMD2.sectionAlignEnable_cinit             = true;
+CMD2.sectionAlignEnable_switch            = true;
+CMD2.sectionAlignEnable_init_array        = true;
+CMD2.sectionAlignEnable_const             = true;
+CMD2.sectionAlignEnable_ovly              = true;
+CMD2.sectionMemory_codestart              = "0x080000";
+CMD2.sectionMemory_stack                  = ["RAMM1"];
+CMD2.sectionMemory_bss                    = ["RAMLS5"];
+CMD2.sectionMemory_sysmem                 = ["RAMLS5"];
+CMD2.sectionMemory_ramfunc                = ["FLASH3"];
+CMD2.sectionMemory_text                   = ["FLASH1","FLASH2","FLASH3","FLASH4"];
+CMD2.sectionMemory_binit                  = ["FLASH4"];
+CMD2.sectionMemory_cinit                  = ["FLASH4"];
+CMD2.sectionMemory_switch                 = ["FLASH1"];
+CMD2.sectionMemory_init_array             = ["FLASH1"];
+CMD2.sectionMemory_const                  = ["FLASH5"];
+CMD2.sectionMemory_ovly                   = ["FLASH6"];
+CMD2.sectionRunFromDifferentAddr_ramfunc  = true;
+CMD2.sectionRun_ramfunc                   = ["RAMLS0"];
+CMD2.sectionBinit_ramfunc                 = false;
+CMD2.sectionMemory_cla1Prog               = ["FLASH3"];
+CMD2.sectionMemory_cla1ToCpuMsgRAM        = ["CLATOCPU_MSGRAM"];
+CMD2.sectionRunFromDifferentAddr_cla1Prog = true;
+CMD2.sectionAlignEnable_cla1Prog          = true;
+CMD2.sectionRun_cla1Prog                  = ["RAMLS6"];
+CMD2.sectionMemory_cpuToCla1MsgRAM        = ["CPUTOCLA_MSGRAM"];
+CMD2.sectionMemory_data                   = ["RAMD0"];
+
+/**
+ * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
+ * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
+ * re-solve from scratch.
+ */
+epwm1.epwm.$suggestSolution           = "EPWM1";
+epwm1.epwm.epwm_aPin.$suggestSolution = "hsecDigital.49";
+epwm1.epwm.epwm_bPin.$suggestSolution = "hsecDigital.51";
+sci1.sci.$suggestSolution             = "SCIA";

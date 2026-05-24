@@ -1,0 +1,20 @@
+# Build output
+CPU1_RAM/
+CPU1_FLASH/
+syscfg/
+targetConfigs/
+
+# CCS project files
+.ccsproject
+.cproject
+.project
+.clangd
+.settings/
+
+# Build artifacts
+*.out
+*.obj
+*.map
+*.mk
+*.xml
+makefile
