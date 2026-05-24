@@ -1,3 +1,4 @@
+/* Author: Masoud Bakhshi — www.plan22.net */
 #include "driverlib.h"
 #include "device.h"
 #include "board.h"
