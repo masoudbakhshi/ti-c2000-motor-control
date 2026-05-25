@@ -172,6 +172,7 @@ void main(void)
     Interrupt_initVectorTable();
 
     Board_init();   /* SysConfig-generated: ePWM1/2/3, ADCA, CLA, SCIA */
+    SysCtl_enablePeripheral(SYSCTL_PERIPH_CLK_TBCLKSYNC);
 
     Interrupt_register(INT_EPWM1, &epwm1ISR);
     Interrupt_enable(INT_EPWM1);
