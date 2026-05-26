@@ -9,8 +9,8 @@ TMS320F28388D (TMDSCNCD28388D controlCARD + TMDSHSECDOCK).
   mode with 125 ns dead-time (active-high complementary outputs).
 - Triggers an ADC conversion on ADCINA0 at the PWM carrier **peak**
   (CTR = PRD), the point of minimum current ripple.
-- The CLA reads the ADC result and writes it to a CPU-visible shared
-  variable (`g_adcResult`) in CLA-to-CPU message RAM.
+- Reads the ADC result inside the ePWM1 CTR=ZERO ISR, half a switching
+  period after the conversion fired (well past EOC).
 - Streams sector number and raw ADC count over UART (SCIA) at **10 Hz**
   in the format `S:<sector>,ADC:<count>,A:<cmpa>,B:<cmpb>,C:<cmpc>`.
 
@@ -39,8 +39,8 @@ TMS320F28388D (TMDSCNCD28388D controlCARD + TMDSHSECDOCK).
 
 ```
 svpwm_adc/
-├── main.c              # SVPWM algorithm, ISR, CLA task, UART output
-├── svpwm_adc.syscfg    # SysConfig: ePWM, ADC, CLA, SCI, CMD
+├── main.c              # SVPWM algorithm, ISR, ADC read, UART output
+├── svpwm_adc.syscfg    # SysConfig: ePWM, ADC, SCI, CMD
 └── CCS/
     └── svpwm_adc.projectspec
 ```

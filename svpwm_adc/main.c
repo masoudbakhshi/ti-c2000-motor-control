@@ -40,18 +40,11 @@ static const uint8_t c_role[6][3] = {
     {0, 2, 1},
 };
 
-/* ── CLA → CPU shared variable (written by CLA Task 1) ─────────────── */
-#pragma DATA_SECTION(g_adcResult, "cla1ToCpuMsgRAM")
-volatile uint16_t g_adcResult;
-
 /* ── State visible to main loop ─────────────────────────────────────── */
+volatile uint16_t g_adcResult;
 volatile uint16_t g_sector;
 volatile uint16_t g_cmpa[3];   /* CMPA registers for ePWM1, ePWM2, ePWM3 */
 volatile uint16_t g_uartReady;
-
-/* ── CLA task forward declarations ──────────────────────────────────── */
-extern __interrupt void Cla1Task1(void);
-extern __interrupt void Cla1Task1End(void);
 
 /* ================================================================== */
 /*  SVPWM duty-cycle computation                                       */
@@ -109,14 +102,16 @@ static void svpwm_update(float theta)
 
 /* ================================================================== */
 /*  ePWM1 ISR — fires at CTR=ZERO, 20 kHz                             */
-/*  Updates SVPWM duty cycles each switching period.                   */
-/*  g_adcResult is ready: ADC SOC fired at CTR=PRD one half-cycle     */
-/*  earlier, CLA Task 1 stored the result before CTR returns to ZERO. */
+/*  ADC SOC0 fired at CTR=PRD one half-cycle earlier; conversion      */
+/*  completes well before CTR returns to ZERO, so ADCRESULT0 holds    */
+/*  the freshest sample by the time this ISR runs.                    */
 /* ================================================================== */
 __interrupt void epwm1ISR(void)
 {
     static float    theta = 0.0f;
     static uint32_t count = 0U;
+
+    g_adcResult = ADC_readResult(ADCARESULT_BASE, ADC_SOC_NUMBER0);
 
     svpwm_update(theta);
 
@@ -132,20 +127,6 @@ __interrupt void epwm1ISR(void)
     EPWM_clearEventTriggerInterruptFlag(EPWM1_BASE);
     Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP3);
 }
-
-/* ================================================================== */
-/*  CLA Task 1 — triggered by ADCA INT1 (end of SOC0 conversion)      */
-/*  Runs on the CLA processor; writes result to CPU-visible shared    */
-/*  variable in Cla1ToCpuMsgRAM.                                       */
-/* ================================================================== */
-#pragma CODE_SECTION(Cla1Task1,    "Cla1Prog")
-__interrupt void Cla1Task1(void)
-{
-    g_adcResult = ADC_readResult(ADCARESULT_BASE, ADC_SOC_NUMBER0);
-}
-
-#pragma CODE_SECTION(Cla1Task1End, "Cla1Prog")
-__interrupt void Cla1Task1End(void) {}
 
 /* ================================================================== */
 /*  UART helpers — SCI-A, non-FIFO polling                            */

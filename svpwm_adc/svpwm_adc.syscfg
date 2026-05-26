@@ -11,8 +11,6 @@
  */
 const adc            = scripting.addModule("/driverlib/adc.js", {}, false);
 const adc1           = adc.addInstance();
-const cla            = scripting.addModule("/driverlib/cla.js", {}, false);
-const cla1           = cla.addInstance();
 const device_support = scripting.addModule("/driverlib/device_support.js");
 const epwm           = scripting.addModule("/driverlib/epwm.js", {}, false);
 const epwm1          = epwm.addInstance();
@@ -37,24 +35,7 @@ adc1.enabledInts        = ["ADC_INT_NUMBER1"];
 adc1.soc0Trigger        = "ADC_TRIGGER_EPWM1_SOCA";
 adc1.soc0SampleWindow   = 15;
 adc1.enableInterrupt1   = true;
-
-cla1.$name              = "myCLA0";
-cla1.trigger_CLA_TASK_1 = "CLA_TRIGGER_ADCA1";
-cla1.cpuint_CLA_TASK_1  = false;
-cla1.enable_CLA_TASK_2  = false;
-cla1.enable_CLA_TASK_3  = false;
-cla1.enable_CLA_TASK_4  = false;
-cla1.enable_CLA_TASK_5  = false;
-cla1.enable_CLA_TASK_6  = false;
-cla1.enable_CLA_TASK_7  = false;
-cla1.enable_CLA_TASK_8  = false;
-cla1.cpuint_CLA_TASK_2  = false;
-cla1.cpuint_CLA_TASK_3  = false;
-cla1.cpuint_CLA_TASK_4  = false;
-cla1.cpuint_CLA_TASK_5  = false;
-cla1.cpuint_CLA_TASK_6  = false;
-cla1.cpuint_CLA_TASK_7  = false;
-cla1.cpuint_CLA_TASK_8  = false;
+adc1.useInterrupts      = false;
 
 epwm1.$name                                                      = "myEPWM0";
 epwm1.$hardware                                                  = system.deviceData.board.components.PWM_LOC1;
@@ -106,9 +87,6 @@ epwm3.epwmDeadband_delayFED                                      = 25;
 epwm3.epwmDeadband_polarityFED                                   = "EPWM_DB_POLARITY_ACTIVE_LOW";
 epwm3.epwmTimebase_counterModeAfterSync                          = "EPWM_COUNT_MODE_UP_AFTER_SYNC";
 
-memcfg.config_MEMCFG_SECT_LS6        = "CLA_prog";
-memcfg.init_MEMCFG_SECT_MSGCLA1TOCPU = true;
-
 sci1.$name                 = "mySCI0";
 sci1.useFifo               = false;
 sci1.useInterrupts         = false;
@@ -117,19 +95,17 @@ sci1.sci.sci_txPin.$assign = "hsecDigital.78";
 sci1.rxQual.$name          = "myGPIOQUAL0";
 sci1.txQual.$name          = "myGPIOQUAL1";
 
-CMD1.$name                         = "generic_ram_lnk";
-CMD1.sectionMemory_ramfunc         = ["RAMM0"];
-CMD1.sectionMemory_cinit           = ["RAMM0"];
-CMD1.sectionMemory_stack           = ["RAMM1"];
-CMD1.sectionMemory_init_array      = ["RAMM0"];
-CMD1.sectionMemory_bss             = ["RAMLS5"];
-CMD1.sectionMemory_const           = ["RAMLS5"];
-CMD1.sectionMemory_data            = ["RAMGS0","RAMGS1"];
-CMD1.sectionMemory_switch          = ["RAMM0"];
-CMD1.sectionMemory_sysmem          = ["RAMLS5"];
-CMD1.sectionMemory_cla1Prog        = ["RAMLS6"];
-CMD1.sectionMemory_cla1ToCpuMsgRAM = ["CLATOCPU_MSGRAM"];
-CMD1.sectionMemory_text            = ["RAMGS2","RAMGS3","RAMLS0","RAMLS1","RAMLS2","RAMLS3","RAMLS4"];
+CMD1.$name                    = "generic_ram_lnk";
+CMD1.sectionMemory_ramfunc    = ["RAMM0"];
+CMD1.sectionMemory_cinit      = ["RAMM0"];
+CMD1.sectionMemory_stack      = ["RAMM1"];
+CMD1.sectionMemory_init_array = ["RAMM0"];
+CMD1.sectionMemory_bss        = ["RAMLS5"];
+CMD1.sectionMemory_const      = ["RAMLS5"];
+CMD1.sectionMemory_data       = ["RAMGS0","RAMGS1"];
+CMD1.sectionMemory_switch     = ["RAMM0"];
+CMD1.sectionMemory_sysmem     = ["RAMLS5"];
+CMD1.sectionMemory_text       = ["RAMGS2","RAMGS3","RAMLS0","RAMLS1","RAMLS2","RAMLS3","RAMLS4"];
 
 CMD2.$name                                = "generic_flash_lnk";
 CMD2.sectionAlignEnable_ramfunc           = true;
@@ -157,10 +133,8 @@ CMD2.sectionRun_ramfunc                   = ["RAMLS0"];
 CMD2.sectionBinit_ramfunc                 = false;
 CMD2.sectionMemory_data                   = ["RAMLS7"];
 CMD2.sectionMemory_cla1Prog               = ["FLASH3"];
-CMD2.sectionMemory_cla1ToCpuMsgRAM        = ["CLATOCPU_MSGRAM"];
 CMD2.sectionRunFromDifferentAddr_cla1Prog = true;
 CMD2.sectionAlignEnable_cla1Prog          = true;
-CMD2.sectionRun_cla1Prog                  = ["RAMLS6"];
 
 /**
  * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
