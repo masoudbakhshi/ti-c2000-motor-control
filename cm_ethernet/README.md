@@ -32,3 +32,15 @@ projectspec adds `--diag_suppress=179` so a fresh import is clean;
 existing imports can either re-import or add the flag manually under
 `Project -> Properties -> Build -> ARM Compiler -> Advanced Options
 -> Diagnostic Options`.
+
+---
+
+## Author
+
+**Masoud Bakhshi**
+
+* Website  : <https://www.plan22.net>
+* Email    : <info@plan22.net>
+* LinkedIn : <https://www.linkedin.com/in/masoud-bakhshi-78490846/>
+
+MIT with required attribution. See [../LICENSE](../LICENSE).

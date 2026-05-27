@@ -247,8 +247,13 @@ the same toolchain (`ti-cgt-tms470_20.2.7.LTS`) the example targets.
 
 ## Author
 
-Masoud Bakhshi - <https://www.plan22.net> -
-[LinkedIn](https://www.linkedin.com/in/masoudbakhshi/)
+**Masoud Bakhshi**
 
-MIT licensed. Attribution to the author is required in derivative
-works.
+* Website  : <https://www.plan22.net>
+* Email    : <info@plan22.net>
+* LinkedIn : <https://www.linkedin.com/in/masoud-bakhshi-78490846/>
+
+Licensed under the MIT License with an additional attribution
+requirement - see [LICENSE](LICENSE). Any derivative work must
+visibly credit the author with the name, website, email and
+LinkedIn references above.

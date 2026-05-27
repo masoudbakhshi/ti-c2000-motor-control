@@ -1,0 +1,38 @@
+MIT License
+
+Copyright (c) 2026 Masoud Bakhshi
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+ADDITIONAL ATTRIBUTION CONDITION
+--------------------------------
+
+Any derivative work, redistribution, fork, port, or product that includes
+this Software (in source or binary form, in whole or in part) MUST
+visibly credit the original author with ALL of the following references,
+together, in any user-facing documentation, README, "about" / "credits"
+section, splash screen, or comparable surface that ships with the
+derivative work:
+
+    Author:   Masoud Bakhshi
+    Website:  https://www.plan22.net
+    Email:    info@plan22.net
+    LinkedIn: https://www.linkedin.com/in/masoud-bakhshi-78490846/
+
+Removing or obscuring this attribution is a violation of the license.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

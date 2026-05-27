@@ -18,3 +18,15 @@ SysConfig 1.27.x. C2000Ware 26.01.00.00.
 **Active build configurations:** `CPU1_RAM` (default for bring-up via
 JTAG) and `CPU1_FLASH` (for standalone boot). Switch in CCS via
 `Project -> Build Configurations -> Set Active`.
+
+---
+
+## Author
+
+**Masoud Bakhshi**
+
+* Website  : <https://www.plan22.net>
+* Email    : <info@plan22.net>
+* LinkedIn : <https://www.linkedin.com/in/masoud-bakhshi-78490846/>
+
+MIT with required attribution. See [../LICENSE](../LICENSE).

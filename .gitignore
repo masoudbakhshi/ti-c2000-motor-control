@@ -21,6 +21,7 @@
 # 3. Re-allow the file types listed in the policy.
 !.gitignore
 !README.md
+!LICENSE
 !*.c
 !*.syscfg
 !*.projectspec
