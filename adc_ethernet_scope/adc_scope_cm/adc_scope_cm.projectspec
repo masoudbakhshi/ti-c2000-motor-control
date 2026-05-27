@@ -1,6 +1,6 @@
 <projectSpec>
   <project
-        name="cm_ethernet"
+        name="adc_scope_cm"
         device="Cortex M.TMS320F28388D"
         cgtVersion="20.2.7.LTS"
         products="C2000WARE"

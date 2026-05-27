@@ -1,6 +1,8 @@
-# cpu1_adc_ipc
+# adc_scope_cpu1
 
-F28388D **CPU1** project: ADCINA0 sampler + CPU1->CM IPC producer.
+F28388D **CPU1** (C28x) project: ADCINA0 sampler + CPU1->CM IPC
+producer. The CM half lives at [`../adc_scope_cm/`](../adc_scope_cm/);
+the parent overview is at [`../README.md`](../README.md).
 
 * ADC-A SOC0 = ADCIN0 (HSEC8 pin 9 = dock J4 pin 1)
 * ePWM1 fires SOCA at 10 kHz (TBPRD = 4999, TBCLK = 50 MHz - SysConfig HSPCLKDIV=2 on top of EPWMCLKDIV=2 halves the clock that ends up at the time-base)
@@ -9,7 +11,8 @@ F28388D **CPU1** project: ADCINA0 sampler + CPU1->CM IPC producer.
 * `Device_bootCM()` brings the Cortex-M4 core up from its own flash
 * SysConfig handles all pinmux, peripheral init, and `Board_init()`
 
-See the [repo README](../README.md) for the full bring-up sequence,
+See the [project README](../README.md) for the parent overview, and
+the [repo README](../../README.md) for the full bring-up sequence,
 hardware switch matrix and acceptance criteria.
 
 **Toolchain:** TI C2000 Compiler 22.6.x LTS (CCS 20.5.1 default).
@@ -29,4 +32,4 @@ JTAG) and `CPU1_FLASH` (for standalone boot). Switch in CCS via
 * Email    : <info@plan22.net>
 * LinkedIn : <https://www.linkedin.com/in/masoud-bakhshi-78490846/>
 
-MIT with required attribution. See [../LICENSE](../LICENSE).
+MIT with required attribution. See [../../LICENSE](../../LICENSE).

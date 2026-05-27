@@ -1,6 +1,6 @@
 <projectSpec>
   <project
-        name="cpu1_adc_ipc"
+        name="adc_scope_cpu1"
         device="TMS320F28388D"
         cgtVersion="22.6.3.LTS"
         products="sysconfig;C2000WARE"
@@ -22,7 +22,7 @@
     <file action="copy" path="${C2000WARE_ROOT}/device_support/f2838x/common/cmd/2838x_FLASH_lnk_cpu1.cmd" targetDirectory="" applicableConfigurations="CPU1_FLASH" />
     <file action="link" path="${C2000WARE_DLIB_ROOT}/ccs/Debug/driverlib.lib" targetDirectory="" />
     <file action="copy" path="${C2000WARE_DLIB_ROOT}/" targetDirectory="device" excludeFromBuild="True" />
-    <file action="copy" path="main_cpu1.c"        targetDirectory="" />
-    <file action="copy" path="cpu1_adc_ipc.syscfg" targetDirectory="" />
+    <file action="copy" path="main_cpu1.c"           targetDirectory="" />
+    <file action="copy" path="adc_scope_cpu1.syscfg" targetDirectory="" />
   </project>
 </projectSpec>

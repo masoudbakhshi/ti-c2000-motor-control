@@ -28,11 +28,10 @@ TMDSCNCD28388D controlCARD on a TMDSHSECDOCK baseboard.
 | `cmpss_trip_overcurrent/` | CPU1 | Overcurrent trip via CMPSS comparator                |
 | `pi_current_cla/`       | CLA1   | Incremental PI current loop on CLA at 20 kHz         |
 | `svpwm_adc/`            | CPU1+CPU2 | SVPWM modulator + 3-shunt ADC sampling            |
-| `cpu1_adc_ipc/`         | CPU1   | ADCINA0 sampler + IPC producer for the scope project |
-| `cm_ethernet/`          | CM     | lwIP UDP transmitter, consumer of the IPC ring       |
+| `adc_ethernet_scope/`   | CPU1+CM | ADCINA0 -> UDP scope. Two subprojects: `cpu1/` (C28x sampler + IPC producer) and `cm/` (lwIP UDP transmitter). See [`adc_ethernet_scope/README.md`](adc_ethernet_scope/README.md). |
 
-The Pi-side receiver and Streamlit dashboard for `cpu1_adc_ipc` +
-`cm_ethernet` lives at
+The Pi-side receiver and Streamlit dashboard for `adc_ethernet_scope`
+lives at
 [`../RaspberryPi/06_Ethernet_Scope/`](../RaspberryPi/06_Ethernet_Scope/) in
 the sibling repository.
 
@@ -40,7 +39,7 @@ the sibling repository.
 
 # ADC -> Ethernet Scope
 
-`cpu1_adc_ipc` + `cm_ethernet` implement an ADCINA0 oscilloscope that
+`adc_ethernet_scope/cpu1/` + `adc_ethernet_scope/cm/` implement an ADCINA0 oscilloscope that
 streams 10 000 samples/s over UDP to a Raspberry Pi. The signal path
 is:
 
@@ -94,7 +93,7 @@ is:
 
    `S3` *must* be left so the ADC scaling `raw / 4095 * 3.3` matches
    the firmware. If you need a 3.0 V precision reference instead,
-   change the literal in `cpu1_adc_ipc/main_cpu1.c` and the README.
+   change the literal in `adc_ethernet_scope/cpu1/main_cpu1.c` and the README.
 
 2. **Power the dock** (TMDSHSECDOCK, see SPRUIJ6A): plug a USB-mini
    cable into `J17` and flip `SW1` to `USB-ON`. `D1` on the dock
@@ -107,14 +106,14 @@ is:
    EtherCAT). The other end goes directly to the Pi's RJ45.
 
 5. **Build, in CCS**:
-   - `Project -> Build` `cpu1_adc_ipc` (CPU1_FLASH config)
-   - `Project -> Build` `cm_ethernet`  (CM_FLASH config)
+   - `Project -> Build` `adc_scope_cpu1` (CPU1_FLASH config)
+   - `Project -> Build` `adc_scope_cm`   (CM_FLASH config)
 
 6. **Flash, strict order** (per F28388 dual-core flash protocol):
-   1. Load `cpu1_adc_ipc.out` to CPU1
+   1. Load `adc_scope_cpu1.out` to CPU1
    2. Run CPU1 - this executes `Device_init()` + `Device_bootCM()`
    3. Pause CPU1
-   4. Load `cm_ethernet.out` to CM
+   4. Load `adc_scope_cm.out` to CM
    5. Run CM, then run CPU1
 
    Skipping the run-CPU1-first step leaves CM in reset and the flash
@@ -159,7 +158,7 @@ Little-endian, 224 bytes for the default `N = 50` samples per packet.
 
 The canonical definition lives in
 [`../RaspberryPi/06_Ethernet_Scope/receiver/packet.py`](../RaspberryPi/06_Ethernet_Scope/receiver/packet.py);
-the firmware's `cm_ethernet/main_cm.c` is hand-aligned to match it
+the firmware's `adc_ethernet_scope/cm/main_cm.c` is hand-aligned to match it
 byte for byte.
 
 ## Shared block (MSGRAM_CPU_TO_CM)
@@ -224,11 +223,11 @@ the same toolchain (`ti-cgt-tms470_20.2.7.LTS`) the example targets.
 * **F28388 EMAC TX counter (`0x400C0718`) stops at exactly 8.**
   Classic "8 ARP retries then silence" pattern - the MAC is sending,
   the PHY isn't getting it on the wire. Check the cable first, then
-  the PHY 100BASE-TX line driver health. The cm_ethernet firmware
+  the PHY 100BASE-TX line driver health. The adc_scope_cm firmware
   does **not** kick the auto-neg restart after `lwIPStart(0)` - in
   prior debugging that kick tore down a working link.
 
-* **Build of `cm_ethernet` reports five `#179-D` warnings.**
+* **Build of `adc_scope_cm` reports five `#179-D` warnings.**
   These are in TI's `enet.c` and `f2838xif.c` (unused local
   variables). The projectspec adds `--diag_suppress=179` so a fresh
   re-import is clean. Existing imports can either re-import or add

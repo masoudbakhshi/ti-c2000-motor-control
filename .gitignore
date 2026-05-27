@@ -48,15 +48,16 @@ true
 HW_Documentations/
 _archived_previous_attempts/
 # CCS workspace auto-renames a project when it can't reuse the same
-# name on re-import; the duplicate folder is not source, do not commit.
+# name on re-import; any duplicate folder is not source, do not commit.
+*_2/
 cm_ethernet_2/
 
 # 6. C2000Ware SDK source files that the projectspec copies into a
 #    project on import.  These are TI's code, not ours - they belong
 #    in C2000Ware, not in this repo.
-cm_ethernet/device_cm.c
-cm_ethernet/enet.c
-cm_ethernet/f2838xif.c
-cm_ethernet/lwiplib.c
-cm_ethernet/pinout.c
-cm_ethernet/startup_ccs.c
+adc_ethernet_scope/adc_scope_cm/device_cm.c
+adc_ethernet_scope/adc_scope_cm/enet.c
+adc_ethernet_scope/adc_scope_cm/f2838xif.c
+adc_ethernet_scope/adc_scope_cm/lwiplib.c
+adc_ethernet_scope/adc_scope_cm/pinout.c
+adc_ethernet_scope/adc_scope_cm/startup_ccs.c

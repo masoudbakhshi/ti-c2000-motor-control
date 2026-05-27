@@ -1,7 +1,9 @@
-# cm_ethernet
+# adc_scope_cm
 
 F28388D **Cortex-M4 (CM)** project: lwIP UDP transmitter, consumer of
-the CPU1 ADC ring.
+the CPU1 ADC ring. The CPU1 half lives at
+[`../adc_scope_cpu1/`](../adc_scope_cpu1/); the parent overview is at
+[`../README.md`](../README.md).
 
 Based on the canonical C2000Ware example
 `libraries/communications/Ethernet/third_party/lwip/examples/enet_lwip_udp/cm/`.
@@ -23,7 +25,7 @@ unmodified from C2000Ware via the projectspec.
 port is built and linked against the older ARM CGT). `--float_support=none`.
 
 **Active build configuration:** `CM_FLASH` only. To flash, follow the
-strict order documented in the [repo README](../README.md):
+strict order documented in the [project README](../README.md):
 load CPU1 -> run CPU1 -> pause -> load CM.
 
 **Warnings:** the build emits five `#179-D` (unused variable) warnings
@@ -43,4 +45,4 @@ existing imports can either re-import or add the flag manually under
 * Email    : <info@plan22.net>
 * LinkedIn : <https://www.linkedin.com/in/masoud-bakhshi-78490846/>
 
-MIT with required attribution. See [../LICENSE](../LICENSE).
+MIT with required attribution. See [../../LICENSE](../../LICENSE).
