@@ -1,26 +1,58 @@
-# ── CCS auto-generated project files (recreated on import) ───────────────────
-**/.ccsproject
-**/.cproject
-**/.project
-**/.clangd
-**/.settings/
+# Public-repo policy for this project:
+#
+#   Only .c, .syscfg, .projectspec, README.md and .gitignore are
+#   committed to GitHub.  Everything else (build artefacts, CCS
+#   workspace metadata, generated SysConfig output, copied SDK source
+#   files, board PDFs, etc.) stays local.
+#
+# This file is allowlist-style: deny everything first, then re-allow
+# the specific filename patterns the policy permits.  Files matching
+# the explicit deny rules at the bottom remain ignored even if the
+# allow rules would otherwise let them through (the deny rules are
+# there to cover generated artefacts that share an allowed extension,
+# e.g. a SysConfig-generated *.c that lands inside a project folder).
 
-# ── CCS build output ──────────────────────────────────────────────────────────
-**/CPU1_RAM/
-**/CPU1_FLASH/
-**/targetConfigs/
+# 1. Deny everything by default.
+*
 
-# ── Compiled and linked artifacts ────────────────────────────────────────────
-*.out
-*.obj
-*.map
-*.d
-*.opt
-*.genlibs
-makefile
-*.mk
-*.xml
+# 2. Re-allow directory recursion so git can walk subprojects.
+!*/
 
-# ── SysConfig generated sources ───────────────────────────────────────────────
-**/syscfg/
+# 3. Re-allow the file types listed in the policy.
+!.gitignore
+!README.md
+!*.c
+!*.syscfg
+!*.projectspec
 
+# 4. Explicitly re-deny generated outputs and SDK copies that may
+#    sit next to source files after a build or first import.
+syscfg/
+Debug/
+Release/
+CPU1_RAM/
+CPU1_FLASH/
+CM_RAM/
+CM_FLASH/
+targetConfigs/
+device/
+.settings/
+.metadata/
+.theia/
+.vscode/
+.idea/
+
+# 5. Local-only files that are NOT considered project source.
+true
+HW_Documentations/
+_archived_previous_attempts/
+
+# 6. C2000Ware SDK source files that the projectspec copies into a
+#    project on import.  These are TI's code, not ours - they belong
+#    in C2000Ware, not in this repo.
+cm_ethernet/device_cm.c
+cm_ethernet/enet.c
+cm_ethernet/f2838xif.c
+cm_ethernet/lwiplib.c
+cm_ethernet/pinout.c
+cm_ethernet/startup_ccs.c

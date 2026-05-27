@@ -1,0 +1,44 @@
+<projectSpec>
+  <project
+        name="cm_ethernet"
+        device="Cortex M.TMS320F28388D"
+        cgtVersion="20.2.7.LTS"
+        products="C2000WARE"
+        endianness="little"
+        launchWizard="False"
+        linkerCommandFile=""
+        >
+    <configuration
+        name="CM_FLASH"
+        compilerBuildOptions="--opt_level=off -I${PROJECT_ROOT}/device -I${C2000WARE_DLIB_ROOT} -I${C2000WARE_ROOT}/driverlib/f2838x -I${LWIP_ROOT} -I${LWIP_LOC} -I${LWIP_INC} -I${LWIP_PORT} -I${CUSTOM_DRIVER} -I${CM_DEVICE_SUPPORT} --float_support=none --define=_FLASH -mv7M4 -me --diag_warning=225 --diag_suppress=179"
+        linkerBuildOptions="--stack_size=2048 --heap_size=0 --library=libc.a"
+        />
+
+    <pathVariable name="C2000WARE_ROOT"      path="C:/ti/c2000/C2000Ware_26_01_00_00" scope="project" />
+    <pathVariable name="C2000WARE_DLIB_ROOT" path="C:/ti/c2000/C2000Ware_26_01_00_00/driverlib/f2838x/driverlib_cm" scope="project" />
+    <pathVariable name="LWIP_ROOT"           path="C:/ti/c2000/C2000Ware_26_01_00_00/libraries/communications/Ethernet/third_party/lwip" scope="project" />
+    <pathVariable name="LWIP_LOC"            path="C:/ti/c2000/C2000Ware_26_01_00_00/libraries/communications/Ethernet/third_party/lwip/lwip-2.1.2" scope="project" />
+    <pathVariable name="LWIP_INC"            path="C:/ti/c2000/C2000Ware_26_01_00_00/libraries/communications/Ethernet/third_party/lwip/lwip-2.1.2/src/include" scope="project" />
+    <pathVariable name="LWIP_PORT"           path="C:/ti/c2000/C2000Ware_26_01_00_00/libraries/communications/Ethernet/third_party/lwip/ports/C2000/include" scope="project" />
+    <pathVariable name="CUSTOM_DRIVER"       path="C:/ti/c2000/C2000Ware_26_01_00_00/libraries/communications/Ethernet/third_party/lwip/driver" scope="project" />
+    <pathVariable name="CM_DEVICE_SUPPORT"   path="C:/ti/c2000/C2000Ware_26_01_00_00/device_support/f2838x/common/include" scope="project" />
+
+    <file action="copy" path="${C2000WARE_ROOT}/device_support/f2838x/common/include/driverlib_cm.h" targetDirectory="device" />
+    <file action="copy" path="${C2000WARE_ROOT}/device_support/f2838x/common/targetConfigs/TMS320F28388D.ccxml" targetDirectory="targetConfigs" />
+    <file action="copy" path="${C2000WARE_DLIB_ROOT}/" targetDirectory="device" excludeFromBuild="True" />
+    <file action="link" path="${C2000WARE_DLIB_ROOT}/ccs/Debug/driverlib_cm.lib" targetDirectory="" />
+
+    <file action="copy" path="${LWIP_ROOT}/examples/enet_lwip_udp/cm/startup_ccs.c" targetDirectory="" />
+    <file action="copy" path="${LWIP_ROOT}/examples/enet_lwip_udp/cm/lwipopts.h"    targetDirectory="" excludeFromBuild="False" />
+    <file action="copy" path="${LWIP_ROOT}/examples/enet_lwip_udp/cm/lwippools.h"   targetDirectory="" excludeFromBuild="False" />
+    <file action="copy" path="${LWIP_ROOT}/examples/enet_lwip_udp/cm/ccs/2838x_flash_lnk_cm_lwip.cmd" targetDirectory="" applicableConfigurations="CM_FLASH" />
+
+    <file action="copy" path="${LWIP_ROOT}/board_drivers/pinout.c" targetDirectory="" />
+    <file action="copy" path="${LWIP_ROOT}/utils/lwiplib.c"        targetDirectory="" />
+    <file action="copy" path="${LWIP_ROOT}/ports/C2000/netif/f2838xif.c" targetDirectory="" />
+    <file action="copy" path="${LWIP_ROOT}/driver/enet.c"          targetDirectory="" />
+    <file action="copy" path="${LWIP_ROOT}/driver/device_cm.c"     targetDirectory="" />
+
+    <file action="copy" path="main_cm.c" targetDirectory="" />
+  </project>
+</projectSpec>
