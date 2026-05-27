@@ -3,7 +3,7 @@
 F28388D **CPU1** project: ADCINA0 sampler + CPU1->CM IPC producer.
 
 * ADC-A SOC0 = ADCIN0 (HSEC8 pin 9 = dock J4 pin 1)
-* ePWM1 fires SOCA at 10 kHz (TBPRD = 9999, TBCLK = 100 MHz)
+* ePWM1 fires SOCA at 10 kHz (TBPRD = 4999, TBCLK = 50 MHz - SysConfig HSPCLKDIV=2 on top of EPWMCLKDIV=2 halves the clock that ends up at the time-base)
 * ADC1 EOC ISR converts each result to volts (V = raw / 4095 * 3.3) and
   writes it into a 128-deep float ring in `MSGRAM_CPU_TO_CM`
 * `Device_bootCM()` brings the Cortex-M4 core up from its own flash

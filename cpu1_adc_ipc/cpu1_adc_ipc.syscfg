@@ -34,10 +34,10 @@ adc1.adcInt1.interruptHandler = "adcA1ISR";
 
 epwm1.$name                                             = "myEPWM0";
 epwm1.epwmTimebase_counterMode                          = "EPWM_COUNTER_MODE_UP";
-epwm1.epwmTimebase_period                               = 9999;
 epwm1.epwmEventTrigger_EPWM_SOC_A_triggerEnable         = true;
 epwm1.epwmEventTrigger_EPWM_SOC_A_triggerSource         = "EPWM_SOC_TBCTR_PERIOD";
 epwm1.epwmEventTrigger_EPWM_SOC_A_triggerEventPrescalar = "1";
+epwm1.epwmTimebase_period                               = 4999;
 epwm1.epwm.$assign                                      = "EPWM1";
 
 gpio1.$name             = "LED_D1";

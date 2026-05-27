@@ -46,6 +46,9 @@ device/
 true
 HW_Documentations/
 _archived_previous_attempts/
+# CCS workspace auto-renames a project when it can't reuse the same
+# name on re-import; the duplicate folder is not source, do not commit.
+cm_ethernet_2/
 
 # 6. C2000Ware SDK source files that the projectspec copies into a
 #    project on import.  These are TI's code, not ours - they belong

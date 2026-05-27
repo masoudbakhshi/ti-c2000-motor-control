@@ -400,13 +400,15 @@ main(void)
     s_dst_addr.addr = lwip_htonl(DST_IPADDR);
 
     /*
-     * IPC handshake with CPU1.  CPU1 has populated g_shared and is
-     * spinning on IPC_FLAG31; pulse it back so CPU1 enables the ADC.
-     * The IPC_synchronize call must use IPC_FLAG31 as agreed by both
-     * sides.  On CM the function is IPC_sync (same name as C28x).
+     * No IPC_sync with CPU1 at startup.  IPC_sync would deadlock here
+     * because CPU1 is loaded and runs first - by the time CM reaches
+     * this point CPU1 has already passed its half of the barrier and
+     * cleared its flag, leaving CM to wait for a flag that will
+     * never come back high.  Instead, drain_and_send() below checks
+     * g_shared->magic on every SysTick and only ships packets once
+     * CPU1 has stamped the shared block as valid.
      */
     IPC_clearFlagLtoR(IPC_CM_L_CPU1_R, IPC_FLAG_ALL);
-    IPC_sync(IPC_CM_L_CPU1_R, IPC_FLAG31);
 
     Interrupt_setPriority(INT_EMAC_TX0, 2);
     Interrupt_setPriority(INT_EMAC_RX0, 1);
