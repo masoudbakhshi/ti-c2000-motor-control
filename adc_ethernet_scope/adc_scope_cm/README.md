@@ -5,6 +5,13 @@ the CPU1 ADC ring. The CPU1 half lives at
 [`../adc_scope_cpu1/`](../adc_scope_cpu1/); the parent overview is at
 [`../README.md`](../README.md).
 
+The **Pi-side receiver** that listens on UDP `:5005` and renders the
+stream lives in the sibling repo at
+[`RaspberryPi/06_Ethernet_Scope/`](../../../RaspberryPi/06_Ethernet_Scope/).
+The wire packet format is defined by `06_Ethernet_Scope/receiver/packet.py`
+and this file's `main_cm.c` is hand-aligned against it byte for byte
+- if you change the layout, both must move together.
+
 Based on the canonical C2000Ware example
 `libraries/communications/Ethernet/third_party/lwip/examples/enet_lwip_udp/cm/`.
 The lwIP support files (`lwiplib.c`, `f2838xif.c`, `enet.c`,
