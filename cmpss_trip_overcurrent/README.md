@@ -1,6 +1,6 @@
 # Hardware Overcurrent Protection via CMPSS and Trip Zones
 
-**Author:** Masoud Bakhshi — [www.plan22.net](https://www.plan22.net) | [LinkedIn](https://linkedin.com/in/masoudbakhshi)
+**Author:** Masoud Bakhshi — [www.plan22.net](https://www.plan22.net) | [LinkedIn](https://www.linkedin.com/in/masoud-bakhshi-78490846)
 
 **License:** MIT — attribution required (see below)
 

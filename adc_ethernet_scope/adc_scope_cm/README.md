@@ -7,7 +7,7 @@ the CPU1 ADC ring. The CPU1 half lives at
 
 The **Pi-side receiver** that listens on UDP `:5005` and renders the
 stream lives in the sibling repo at
-[`RaspberryPi/06_Ethernet_Scope/`](../../../RaspberryPi/06_Ethernet_Scope/).
+[`RaspberryPi/06_Ethernet_Scope/`](https://github.com/masoudbakhshi/RaspberryPi/tree/main/06_Ethernet_Scope).
 The wire packet format is defined by `06_Ethernet_Scope/receiver/packet.py`
 and this file's `main_cm.c` is hand-aligned against it byte for byte
 - if you change the layout, both must move together.

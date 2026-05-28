@@ -32,7 +32,7 @@ TMDSCNCD28388D controlCARD on a TMDSHSECDOCK baseboard.
 
 The Pi-side receiver and Streamlit dashboard for `adc_ethernet_scope`
 lives at
-[`../RaspberryPi/06_Ethernet_Scope/`](../RaspberryPi/06_Ethernet_Scope/) in
+[`RaspberryPi/06_Ethernet_Scope/`](https://github.com/masoudbakhshi/RaspberryPi/tree/main/06_Ethernet_Scope) in
 the sibling repository.
 
 ---
@@ -120,7 +120,7 @@ is:
    programmer reports `FMSTAT=0x1040` or "held in reset".
 
 7. **On the Pi**: see
-   [`RaspberryPi/06_Ethernet_Scope/README.md`](../RaspberryPi/06_Ethernet_Scope/README.md).
+   [`RaspberryPi/06_Ethernet_Scope/README.md`](https://github.com/masoudbakhshi/RaspberryPi/blob/main/06_Ethernet_Scope/README.md).
    The 60-second version:
    ```bash
    sudo ./setup_static_ip.sh
@@ -157,7 +157,7 @@ Little-endian, 224 bytes for the default `N = 50` samples per packet.
 | 24     | float[N]    | samples        | volts                    |
 
 The canonical definition lives in
-[`../RaspberryPi/06_Ethernet_Scope/receiver/packet.py`](../RaspberryPi/06_Ethernet_Scope/receiver/packet.py);
+[`RaspberryPi/06_Ethernet_Scope/receiver/packet.py`](https://github.com/masoudbakhshi/RaspberryPi/blob/main/06_Ethernet_Scope/receiver/packet.py);
 the firmware's `adc_ethernet_scope/cm/main_cm.c` is hand-aligned to match it
 byte for byte.
 

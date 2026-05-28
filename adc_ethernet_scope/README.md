@@ -67,8 +67,8 @@ troubleshooting tree.
 ## Companion Pi-side project
 
 The other half of this system lives in the sibling repository
-[`RaspberryPi`](../../RaspberryPi) at
-[`RaspberryPi/06_Ethernet_Scope/`](../../RaspberryPi/06_Ethernet_Scope/).
+[`RaspberryPi`](https://github.com/masoudbakhshi/RaspberryPi) at
+[`RaspberryPi/06_Ethernet_Scope/`](https://github.com/masoudbakhshi/RaspberryPi/tree/main/06_Ethernet_Scope).
 It contains:
 
 * `sniff.py` — headless CLI sniffer used for bring-up/diagnostics;

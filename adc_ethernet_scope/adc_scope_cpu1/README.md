@@ -6,7 +6,7 @@ the parent overview is at [`../README.md`](../README.md).
 
 The **Pi-side receiver and Streamlit dashboard** that consume the
 samples shipped over UDP live in the sibling repo at
-[`RaspberryPi/06_Ethernet_Scope/`](../../../RaspberryPi/06_Ethernet_Scope/).
+[`RaspberryPi/06_Ethernet_Scope/`](https://github.com/masoudbakhshi/RaspberryPi/tree/main/06_Ethernet_Scope).
 
 * ADC-A SOC0 = ADCIN0 (HSEC8 pin 9 = dock J4 pin 1)
 * ePWM1 fires SOCA at 10 kHz (TBPRD = 4999, TBCLK = 50 MHz - SysConfig HSPCLKDIV=2 on top of EPWMCLKDIV=2 halves the clock that ends up at the time-base)
