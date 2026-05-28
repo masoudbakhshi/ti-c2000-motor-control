@@ -1,4 +1,4 @@
-/* Author: Masoud Bakhshi — www.plan22.net */
+/* Author: Masoud Bakhshi - www.plan22.net */
 #include "driverlib.h"
 #include "device.h"
 #include "board.h"
@@ -34,8 +34,8 @@
 /* ================================================================== */
 /*  CLA ↔ CPU shared variables                                         */
 /*                                                                     */
-/*  Cpu1ToCla1MsgRAM  — CPU writes, CLA reads                         */
-/*  Cla1ToCpuMsgRAM   — CLA writes, CPU reads                         */
+/*  Cpu1ToCla1MsgRAM  - CPU writes, CLA reads                         */
+/*  Cla1ToCpuMsgRAM   - CLA writes, CPU reads                         */
 /* ================================================================== */
 #pragma DATA_SECTION(g_iref,   "cpuToCla1MsgRAM")
 volatile float g_iref   = 0.0f;    /* current reference (A) */
@@ -61,7 +61,7 @@ extern __interrupt void Cla1Task1(void);
 extern __interrupt void Cla1Task1End(void);
 
 /* ================================================================== */
-/*  uart_send — blocking SCI-A transmit, non-FIFO                     */
+/*  uart_send - blocking SCI-A transmit, non-FIFO                     */
 /* ================================================================== */
 static void uart_send(const char *s)
 {
@@ -72,7 +72,7 @@ static void uart_send(const char *s)
 }
 
 /* ================================================================== */
-/*  ePWM1 ISR — fires at CTR=ZERO, 20 kHz                             */
+/*  ePWM1 ISR - fires at CTR=ZERO, 20 kHz                             */
 /*                                                                     */
 /*  Sequence each period:                                              */
 /*    CTR=PRD  → SOCA → ADC SOC0 starts                               */

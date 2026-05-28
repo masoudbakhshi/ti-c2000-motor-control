@@ -1,4 +1,4 @@
-/* Author: Masoud Bakhshi — www.plan22.net */
+/* Author: Masoud Bakhshi - www.plan22.net */
 #include "driverlib.h"
 #include "device.h"
 #include "board.h"
@@ -101,7 +101,7 @@ static void svpwm_update(float theta)
 }
 
 /* ================================================================== */
-/*  ePWM1 ISR — fires at CTR=ZERO, 20 kHz                             */
+/*  ePWM1 ISR - fires at CTR=ZERO, 20 kHz                             */
 /*  ADC SOC0 fired at CTR=PRD one half-cycle earlier; conversion      */
 /*  completes well before CTR returns to ZERO, so ADCRESULT0 holds    */
 /*  the freshest sample by the time this ISR runs.                    */
@@ -129,7 +129,7 @@ __interrupt void epwm1ISR(void)
 }
 
 /* ================================================================== */
-/*  UART helpers — SCI-A, non-FIFO polling                            */
+/*  UART helpers - SCI-A, non-FIFO polling                            */
 /* ================================================================== */
 static void uart_send(const char *s)
 {

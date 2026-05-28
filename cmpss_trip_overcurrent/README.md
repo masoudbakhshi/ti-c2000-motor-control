@@ -1,8 +1,8 @@
 # Hardware Overcurrent Protection via CMPSS and Trip Zones
 
-**Author:** Masoud Bakhshi — [www.plan22.net](https://www.plan22.net) | [LinkedIn](https://www.linkedin.com/in/masoud-bakhshi-78490846)
+**Author:** Masoud Bakhshi - [www.plan22.net](https://www.plan22.net) | [LinkedIn](https://www.linkedin.com/in/masoud-bakhshi-78490846)
 
-**License:** MIT — attribution required (see below)
+**License:** MIT - attribution required (see below)
 
 ---
 
@@ -69,8 +69,8 @@ Blanking window of 32 samples at 200 MHz EPWMCLK with a threshold of 30/32, prov
 
 | Mode | `TRIP_MODE` define | Behaviour |
 |---|---|---|
-| CBC | `0` | Cycle-by-cycle — PWM re-arms on the next counter zero |
-| OST | `1` | One-shot — PWM latched off until `clearOST()` is called |
+| CBC | `0` | Cycle-by-cycle - PWM re-arms on the next counter zero |
+| OST | `1` | One-shot - PWM latched off until `clearOST()` is called |
 
 ---
 
@@ -86,7 +86,7 @@ Blanking window of 32 samples at 200 MHz EPWMCLK with a threshold of 30/32, prov
 
 ## UART Telemetry
 
-115200 8N1 on SCIA (GPIO29 TX / GPIO28 RX — XDS110 backchannel).
+115200 8N1 on SCIA (GPIO29 TX / GPIO28 RX - XDS110 backchannel).
 
 Emitted at 10 Hz (every 2000 PWM cycles):
 
@@ -103,11 +103,11 @@ FAULT #1 t=550 us TZFLG=0x04
 On startup, a software fault injection test runs automatically:
 
 ```
-cmpss_trip_overcurrent — Masoud Bakhshi www.plan22.net
+cmpss_trip_overcurrent - Masoud Bakhshi www.plan22.net
 MODE:OST
 INJECT: forcing trip event
-INJECT: trip confirmed — PWM shut down
-INJECT: OST cleared — PWM re-enabled
+INJECT: trip confirmed - PWM shut down
+INJECT: OST cleared - PWM re-enabled
 ```
 
 ---
@@ -135,7 +135,7 @@ Up to 16 fault entries are stored in a circular buffer (`g_fault_log`):
 
 ## License
 
-MIT License — Copyright (c) 2026 Masoud Bakhshi
+MIT License - Copyright (c) 2026 Masoud Bakhshi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this
 software and associated documentation files (the "Software"), to deal in the Software

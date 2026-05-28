@@ -1,8 +1,8 @@
 # Discrete PI Current Controller on C2000 CLA
 
-**Author:** Masoud Bakhshi — [www.plan22.net](https://www.plan22.net) | [LinkedIn](https://www.linkedin.com/in/masoud-bakhshi-78490846)
+**Author:** Masoud Bakhshi - [www.plan22.net](https://www.plan22.net) | [LinkedIn](https://www.linkedin.com/in/masoud-bakhshi-78490846)
 
-**License:** MIT — attribution required (see below)
+**License:** MIT - attribution required (see below)
 
 ---
 
@@ -67,7 +67,7 @@ CTR=ZERO ───────────────────────�
    │  schedule UART                      │     read ADC result        │
    │                                     │     run incremental PI     │
    │                                     │     write g_duty           │
-   │ ← — — — — — — — 25 µs — — — — — — → ← — ~2 µs — →              │
+   │ ← - - - - - - - 25 µs - - - - - - → ← - ~2 µs - →              │
 ```
 
 ---
@@ -97,7 +97,7 @@ CTR=ZERO ───────────────────────�
 
 ## UART Telemetry
 
-115200 8N1 on SCIA (GPIO29 TX / GPIO28 RX — XDS110 backchannel).
+115200 8N1 on SCIA (GPIO29 TX / GPIO28 RX - XDS110 backchannel).
 Emitted at 10 Hz:
 
 ```
@@ -131,7 +131,7 @@ injected sine frequency.
 
 ## License
 
-MIT License — Copyright (c) 2025 Masoud Bakhshi
+MIT License - Copyright (c) 2025 Masoud Bakhshi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this
 software and associated documentation files (the "Software"), to deal in the Software

@@ -1,4 +1,4 @@
-/* Author: Masoud Bakhshi — www.plan22.net */
+/* Author: Masoud Bakhshi - www.plan22.net */
 #include "driverlib.h"
 #include "device.h"
 #include "board.h"
@@ -197,13 +197,13 @@ static void faultInjectionTest(void)
     DEVICE_DELAY_US(100);
 
     if (g_fault_total > 0)
-        uartSendLine("INJECT: trip confirmed — PWM shut down\r\n");
+        uartSendLine("INJECT: trip confirmed - PWM shut down\r\n");
     else
-        uartSendLine("INJECT: FAIL — no trip recorded\r\n");
+        uartSendLine("INJECT: FAIL - no trip recorded\r\n");
 
 #if TRIP_MODE == 1
     clearOST();
-    uartSendLine("INJECT: OST cleared — PWM re-enabled\r\n");
+    uartSendLine("INJECT: OST cleared - PWM re-enabled\r\n");
 #endif
 
     g_inject_active = 0;
@@ -250,7 +250,7 @@ int main(void)
     EINT;
     ERTM;
 
-    uartSendLine("cmpss_trip_overcurrent — Masoud Bakhshi www.plan22.net\r\n");
+    uartSendLine("cmpss_trip_overcurrent - Masoud Bakhshi www.plan22.net\r\n");
     uartSendLine("MODE:");
 #if TRIP_MODE == 0
     uartSendLine("CBC\r\n");
@@ -262,7 +262,7 @@ int main(void)
     DEVICE_DELAY_US(500000);
     faultInjectionTest();
 
-    /* Main loop: supervisory — fault re-arm and reference sweep */
+    /* Main loop: supervisory - fault re-arm and reference sweep */
     float theta = 0.0f;
     for (;;)
     {

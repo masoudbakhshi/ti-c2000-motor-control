@@ -6,7 +6,7 @@
  * Blinks LED D1 (GPIO31) at 1 Hz to verify the hardware bring-up:
  * clock tree, GPIO, and debug connection are all working correctly.
  *
- * LED D1 is active-low — driving GPIO31 LOW turns the LED on.
+ * LED D1 is active-low - driving GPIO31 LOW turns the LED on.
  * Blink timing: 500 ms ON, 500 ms OFF.
  ******************************************************************************/
 

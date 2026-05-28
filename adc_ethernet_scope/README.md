@@ -71,19 +71,19 @@ The other half of this system lives in the sibling repository
 [`RaspberryPi/06_Ethernet_Scope/`](https://github.com/masoudbakhshi/RaspberryPi/tree/main/06_Ethernet_Scope).
 It contains:
 
-* `sniff.py` — headless CLI sniffer used for bring-up/diagnostics;
+* `sniff.py` - headless CLI sniffer used for bring-up/diagnostics;
   prints packet rate, loss, sample rate, and bad-packet counters to
   stdout. Use this first after every flash/reboot to confirm the
   link.
-* `app.py` — Streamlit + Plotly live dashboard with KPIs (current /
+* `app.py` - Streamlit + Plotly live dashboard with KPIs (current /
   mean / min / max / RMS / packet rate / loss % / link uptime), a
   pause toggle, and a CSV-export button. Use this once `sniff.py`
   confirms the link is healthy.
-* `receiver/packet.py` — the **single source of truth** for the
+* `receiver/packet.py` - the **single source of truth** for the
   UDP wire format. `adc_scope_cm/main_cm.c` in this repo is
   hand-aligned against it byte for byte; if you change the packet
   layout, both files must move together in the same commit pair.
-* `setup_static_ip.sh` — Pi-side network config (`nmcli` for Pi OS
+* `setup_static_ip.sh` - Pi-side network config (`nmcli` for Pi OS
   bookworm, `dhcpcd.conf` for older). Sets eth0 to `192.168.10.20/24`.
 
 End-to-end verified bring-up sequence:
@@ -92,9 +92,9 @@ End-to-end verified bring-up sequence:
 2. In CCS, build + flash `adc_scope_cpu1` (CPU1_FLASH) and
    `adc_scope_cm` (CM_FLASH) in the strict order above
 3. On the Pi: `sudo ./setup_static_ip.sh`
-4. On the Pi: `python3 sniff.py` — expect `200.00 pkt/s, 0 lost,
+4. On the Pi: `python3 sniff.py` - expect `200.00 pkt/s, 0 lost,
    0 bad`
-5. On the Pi: `streamlit run app.py` — open
+5. On the Pi: `streamlit run app.py` - open
    `http://<pi-ip>:8501` in any browser on the network
 
 ## How to re-import in CCS

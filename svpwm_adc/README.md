@@ -21,7 +21,7 @@ TMS320F28388D (TMDSCNCD28388D controlCARD + TMDSHSECDOCK).
 | controlCARD | TMDSCNCD28388D |
 | Dock | TMDSHSECDOCK |
 | Inverter | BOOSTXL-3PHGANINV |
-| UART (backchannel) | GPIO28 RX / GPIO29 TX — 115200 8N1 |
+| UART (backchannel) | GPIO28 RX / GPIO29 TX - 115200 8N1 |
 
 ## Key parameters
 
@@ -53,7 +53,7 @@ Requires C2000Ware 26.01.00.00 at `C:/ti/c2000/C2000Ware_26_01_00_00`.
 
 ## License
 
-MIT License — Copyright (c) 2024 Masoud Bakhshi
+MIT License - Copyright (c) 2024 Masoud Bakhshi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -75,5 +75,5 @@ SOFTWARE.
 
 ---
 
-**Author:** Masoud Bakhshi — [www.plan22.net](https://www.plan22.net) |
+**Author:** Masoud Bakhshi - [www.plan22.net](https://www.plan22.net) |
 [LinkedIn](https://www.linkedin.com/in/masoud-bakhshi-78490846)

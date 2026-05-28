@@ -1,4 +1,4 @@
-/* Author: Masoud Bakhshi — www.plan22.net */
+/* Author: Masoud Bakhshi - www.plan22.net */
 #include "driverlib.h"
 #include "device.h"
 
@@ -13,14 +13,14 @@
 #define IPEAK   10.0f               /* shunt amp full-scale (A) */
 
 /* ── Shared variables (defined in main.c) ──────────────────────────── */
-extern volatile float g_iref;      /* Cpu1ToCla1MsgRAM — reference (A) */
-extern volatile float g_duty;      /* Cla1ToCpuMsgRAM  — duty 0–1 */
-extern volatile float g_imeas;     /* Cla1ToCpuMsgRAM  — measured current (A) */
-extern volatile float g_u_prev;    /* Cla1ToCpuMsgRAM  — PI state: u[k-1] */
-extern volatile float g_e_prev;    /* Cla1ToCpuMsgRAM  — PI state: e[k-1] */
+extern volatile float g_iref;      /* Cpu1ToCla1MsgRAM - reference (A) */
+extern volatile float g_duty;      /* Cla1ToCpuMsgRAM  - duty 0–1 */
+extern volatile float g_imeas;     /* Cla1ToCpuMsgRAM  - measured current (A) */
+extern volatile float g_u_prev;    /* Cla1ToCpuMsgRAM  - PI state: u[k-1] */
+extern volatile float g_e_prev;    /* Cla1ToCpuMsgRAM  - PI state: e[k-1] */
 
 /* ================================================================== */
-/*  CLA Task 1 — triggered by ADCA INT1 at 20 kHz                     */
+/*  CLA Task 1 - triggered by ADCA INT1 at 20 kHz                     */
 /*                                                                     */
 /*  Incremental PI (velocity form):                                    */
 /*    i_meas = (adc / 4096 - 0.5) × 2 × IPEAK                        */
@@ -38,7 +38,7 @@ __interrupt void Cla1Task1(void)
     uint16_t adc_raw;
     float    i_meas, i_ref, e, du, u;
 
-    /* Read ADC result (ADCA SOC0 — phase A current) */
+    /* Read ADC result (ADCA SOC0 - phase A current) */
     adc_raw = ADC_readResult(ADCARESULT_BASE, ADC_SOC_NUMBER0);
 
     /* Convert to current: midscale (2048) = 0 A, full-scale = ±IPEAK */
