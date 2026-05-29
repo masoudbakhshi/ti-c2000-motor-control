@@ -83,6 +83,63 @@ It contains:
 | Wire CRC                 | CRC-16-CCITT, poly 0x1021, init 0xFFFF         |
 | Static IPs               | MCU 192.168.10.10/24, Pi 192.168.10.20/24      |
 
+## Pinout (controlCARD HSEC dock + BOOSTXL-3PhGaNInv)
+
+The BOOSTXL-3PhGaNInv stacks on top of the TMDSCNCD28388D controlCARD
+through the TMDSHSECDOCK 100-pin HSEC connector. The BoosterPack site
+on the dock routes the BoosterPack header pins to specific HSEC pins,
+which in turn map to F28388D GPIOs and ADC channels. The resolved
+end-to-end map is:
+
+| Signal       | Direction | F28388D pin | HSEC dock pin | BOOSTXL pin | Notes                                       |
+|--------------|-----------|-------------|----------------|-------------|---------------------------------------------|
+| EPWM1A (AH)  | OUT       | GPIO0       | HSEC 49        | J1.40       | Leg A high side gate (LMG5113)              |
+| EPWM1B (AL)  | OUT       | GPIO1       | HSEC 51        | J1.39       | Leg A low side gate                         |
+| EPWM2A (BH)  | OUT       | GPIO2       | HSEC 53        | J1.38       | Leg B high side gate                        |
+| EPWM2B (BL)  | OUT       | GPIO3       | HSEC 55        | J1.37       | Leg B low side gate                         |
+| EPWM3A (CH)  | OUT       | GPIO4       | HSEC 57        | J1.36       | Leg C high side gate                        |
+| EPWM3B (CL)  | OUT       | GPIO5       | HSEC 59        | J1.35       | Leg C low side gate                         |
+| ADCINA0      | IN        | ADCINA0     | HSEC 9         | J3.30       | INA240 phase-A current feedback             |
+| ADCINA1      | IN        | ADCINA1     | HSEC 11        | J3.29       | INA240 phase-B current feedback             |
+| ADCINA2      | IN        | ADCINA2     | HSEC 13        | J3.28       | INA240 phase-C current feedback             |
+| ADCINB0      | IN        | ADCINB0     | HSEC 15        | J3.27       | DC-bus voltage divider output               |
+| nFAULT       | IN        | GPIO40      | HSEC 79        | J2.14       | GaN driver fault, open drain, active low    |
+| LED D1       | OUT       | GPIO31      | controlCARD    | n/a         | ISR scope probe (toggled every ISR)         |
+| LED D2       | OUT       | GPIO34      | controlCARD    | n/a         | CPU1 heartbeat                              |
+| EMAC PHY     | bidir     | CM core     | J4 RJ45        | n/a         | 100BASE-T MII to Raspberry Pi 4             |
+
+The CM core owns the EMAC peripheral; CPU1 only muxes the MII signals
+to the on-card DP83822 PHY and releases the PHY from reset and
+power-down. The MII pin set is fixed by the F2838x device and is
+configured in
+[`foc_eth_drive_cpu1/src/eth_phy_bringup.c`](foc_eth_drive_cpu1/src/eth_phy_bringup.c):
+MDIO on GPIO105/106, TX_CLK on GPIO44, RX_CLK on GPIO111, TXD[0..3] on
+GPIO75/122/123/124, TX_EN on GPIO118, RXD[0..3] on GPIO114/115/116/117,
+RX_DV on GPIO112, RX_ERR on GPIO113, CRS/COL on GPIO109/110, PHY power
+down on GPIO108 and PHY reset on GPIO119.
+
+Wiring caveats:
+
+- The HSEC pin numbers above are the printed HSEC numbers on the
+  connector. The dock silkscreen for the BoosterPack header uses a
+  separate numbering scheme; the two schemes disagree on this dock,
+  so wire to the HSEC pin number rather than the silkscreen pin.
+- Use the RJ45 marked J4 (Ethernet) on the dock. J5 and J6 are
+  EtherCAT-only and will not enumerate with the lwIP MII bring-up.
+
+Power supply and connectors:
+
+| Rail        | Source                | Connector            | Notes                              |
+|-------------|-----------------------|----------------------|-------------------------------------|
+| Inverter DC | Bench supply 24-48 V  | BOOSTXL J5           | Through a 1 A fuse on first bring-up |
+| Logic 3.3 V | USB host              | TMDSHSECDOCK USB-C   | Also carries the XDS100v2 JTAG link |
+| Ethernet    | controlCARD MII PHY   | TMDSHSECDOCK J4 RJ45 | Direct cable to Pi eth0 (no router) |
+
+For the CPU1 subproject's local copy of this table see
+[`foc_eth_drive_cpu1/docs/PINOUT.md`](foc_eth_drive_cpu1/docs/PINOUT.md);
+both copies are hand-aligned against the same firmware constants in
+[`foc_eth_drive_cpu1/include/board_pinmap_boostxl_3phganinv.h`](foc_eth_drive_cpu1/include/board_pinmap_boostxl_3phganinv.h).
+
 ## Bring-up sequence
 
 Strict flash order matters because the CM boot mode is set by CPU1:
