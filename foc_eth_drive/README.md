@@ -135,10 +135,10 @@ Power supply and connectors:
 | Logic 3.3 V | USB host              | TMDSHSECDOCK USB-C   | Also carries the XDS100v2 JTAG link |
 | Ethernet    | controlCARD MII PHY   | TMDSHSECDOCK J4 RJ45 | Direct cable to Pi eth0 (no router) |
 
-For the CPU1 subproject's local copy of this table see
-[`foc_eth_drive_cpu1/docs/PINOUT.md`](foc_eth_drive_cpu1/docs/PINOUT.md);
-both copies are hand-aligned against the same firmware constants in
-[`foc_eth_drive_cpu1/include/board_pinmap_boostxl_3phganinv.h`](foc_eth_drive_cpu1/include/board_pinmap_boostxl_3phganinv.h).
+The table above is hand-aligned against the firmware constants in
+[`foc_eth_drive_cpu1/include/board_pinmap_boostxl_3phganinv.h`](foc_eth_drive_cpu1/include/board_pinmap_boostxl_3phganinv.h),
+which is the single source of truth: if you re-pin the board, change
+that header and the table here in the same commit.
 
 ## Bring-up sequence
 
