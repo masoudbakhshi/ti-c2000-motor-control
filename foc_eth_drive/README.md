@@ -32,9 +32,31 @@ foc_eth_drive/
 
 CPU1 runs the 20 kHz current control ISR; the Cortex-M4 (CM) bridges
 the on-chip MSGRAM mailboxes to UDP on the wire. The two cores share
-nothing except two dedicated MSGRAM banks. The host-side dashboard
-that talks to this firmware lives in a separate Pi repository,
-documented in its own README.
+nothing except two dedicated MSGRAM banks.
+
+## Companion Pi-side project
+
+The Raspberry Pi 4 host that drives this firmware lives in the
+sibling repository
+[`RaspberryPi`](https://github.com/masoudbakhshi/RaspberryPi) at
+[`07_FOC_Eth_Drive_Scope/`](https://github.com/masoudbakhshi/RaspberryPi/tree/main/07_FOC_Eth_Drive_Scope).
+It contains:
+
+* `app.py` - Streamlit + Plotly four-panel live dashboard with
+  `Id`/`Iq` references and measurements, three phase currents, and
+  `Vdc` + `theta_e`. 100 ms refresh.
+* `eth_io.py` - the **single source of truth** for the UDP wire
+  format. The two firmware projects `foc_eth_drive_cpu1` and
+  `foc_eth_drive_cm` in this repo are hand-aligned against it byte
+  for byte; if you change the packet layout, both repos must move
+  together in the same commit pair.
+* `scope_buffer.py` - thread-safe NumPy-backed rolling sample buffer
+  shared by `app.py` and the receiver thread.
+* `controller_design.py` - closed-form preview of the IMC-tuned
+  `Kp`/`Ki` from `Rs`, `Ls`, `f_bw` so the operator can see the gains
+  before they are programmed.
+* `deploy.sh` - one-shot Pi setup (venv, pip install, static IP on
+  `eth0`, systemd unit, self tests).
 
 ## Architecture at a glance
 
@@ -65,19 +87,28 @@ documented in its own README.
 
 Strict flash order matters because the CM boot mode is set by CPU1:
 
-1. Build `foc_eth_drive_cpu1` (configuration `CPU1_RAM`, compiled with
-   `--define=_FLASH` so the runtime copies `.TI.ramfunc` to RAM).
-2. Build `foc_eth_drive_cm` (configuration `CM_FLASH`).
-3. With the XDS100v2 probe, launch the `foc_eth_drive_cpu1` debug
+1. Build [`foc_eth_drive_cpu1`](foc_eth_drive_cpu1/) (configuration
+   `CPU1_RAM`, compiled with `--define=_FLASH` so the runtime copies
+   `.TI.ramfunc` to RAM).
+2. Build [`foc_eth_drive_cm`](foc_eth_drive_cm/) (configuration
+   `CM_FLASH`).
+3. On the Pi, deploy
+   [`07_FOC_Eth_Drive_Scope`](https://github.com/masoudbakhshi/RaspberryPi/tree/main/07_FOC_Eth_Drive_Scope)
+   from the companion repo (`sudo ./deploy.sh` does everything in one
+   shot).
+4. With the XDS100v2 probe, launch the `foc_eth_drive_cpu1` debug
    session and load the `.out`.
-4. Run CPU1 for a couple of seconds so it executes `Device_init()` +
+5. Run CPU1 for a couple of seconds so it executes `Device_init()` +
    `Device_bootCM(BOOTMODE_BOOT_TO_FLASH_SECTOR0)`.
-5. Pause CPU1.
-6. Connect to the Cortex-M4 core and load `foc_eth_drive_cm.out`.
-7. Resume CM, then resume CPU1.
+6. Pause CPU1.
+7. Connect to the Cortex-M4 core and load `foc_eth_drive_cm.out`.
+8. Resume CM, then resume CPU1.
 
 This is the only order that avoids `FMSTAT=0x1040` and "held in reset"
 on CM.
+
+Once both cores are running, open `http://<pi-ip>:8501` from any
+browser on the Pi's network to see the live four-panel scope.
 
 ## Repository policy
 

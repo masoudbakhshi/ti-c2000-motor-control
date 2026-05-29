@@ -1,7 +1,14 @@
 # foc_eth_drive_cpu1
 
-C28x application image for the [foc_eth_drive](..) package. Runs the
-synchronous-frame current control loop on the TMS320F28388D CPU1 core.
+F28388D **CPU1** (C28x) project: synchronous-frame current control
+(Field-Oriented Control) on a three-phase RL load driven by a
+BOOSTXL-3PhGaNInv 48 V GaN inverter, plus the CPU1->CM IPC producer.
+The CM half lives at [`../foc_eth_drive_cm/`](../foc_eth_drive_cm/);
+the parent overview is at [`../README.md`](../README.md).
+
+The **Pi-side dashboard and command path** that talks to this
+firmware lives in the sibling repo at
+[`RaspberryPi/07_FOC_Eth_Drive_Scope/`](https://github.com/masoudbakhshi/RaspberryPi/tree/main/07_FOC_Eth_Drive_Scope).
 
 | Field    | Value                                          |
 |----------|------------------------------------------------|

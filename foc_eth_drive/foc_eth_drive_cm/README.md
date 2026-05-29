@@ -1,8 +1,15 @@
 # foc_eth_drive_cm
 
-Cortex-M4 (CM) application image for the [foc_eth_drive](..) package.
-Owns the EMAC and lwIP, and bridges the on-chip MSGRAM mailboxes to
-UDP on the wire.
+F28388D **Cortex-M4** (CM) project: lwIP-on-EMAC UDP bridge that
+exchanges command + telemetry packets with a Raspberry Pi at the wire
+boundary, talking to the CPU1 side through two MSGRAM mailbox banks.
+The CPU1 half lives at [`../foc_eth_drive_cpu1/`](../foc_eth_drive_cpu1/);
+the parent overview is at [`../README.md`](../README.md).
+
+The **Pi-side dashboard and command path** that consumes the
+telemetry and produces the references for this firmware lives in the
+sibling repo at
+[`RaspberryPi/07_FOC_Eth_Drive_Scope/`](https://github.com/masoudbakhshi/RaspberryPi/tree/main/07_FOC_Eth_Drive_Scope).
 
 | Field    | Value                                          |
 |----------|------------------------------------------------|
