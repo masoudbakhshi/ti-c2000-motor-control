@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Author: Masoud Bakhshi - www.plan22.net -->
+<projectSpec>
+  <project
+        name="foc_eth_drive_cpu1"
+        device="TMS320F28388D"
+        cgtVersion="22.6.3.LTS"
+        products="C2000WARE"
+        outputFormat="ELF"
+        launchWizard="False"
+        linkerCommandFile=""
+        enableSysConfigTool="false">
+
+    <configuration
+        name="CPU1_RAM"
+        compilerBuildOptions="--opt_level=2 -I${PROJECT_ROOT}/include -I${PROJECT_ROOT}/device -I${C2000WARE_DLIB_ROOT} -I${C2000WARE_DEVICE_ROOT}/common/include -I${C2000WARE_DEVICE_ROOT}/headers/include --define=_FLASH -v28 -ml -mt --float_support=fpu64 --tmu_support=tmu0 --define=CPU1 --define=_LAUNCHXL_F28388D --gen_func_subsections=on --diag_warning=225 --diag_suppress=10063"
+        linkerBuildOptions="--entry_point code_start --stack_size=0x3F8 --heap_size=0x200 --define=_FLASH -i${C2000WARE_DLIB_ROOT}/ccs/Debug"/>
+
+    <pathVariable name="C2000WARE_ROOT"        path="C:/ti/c2000/C2000Ware_26_01_00_00"                          scope="project"/>
+    <pathVariable name="C2000WARE_DLIB_ROOT"   path="C:/ti/c2000/C2000Ware_26_01_00_00/driverlib/f2838x/driverlib" scope="project"/>
+    <pathVariable name="C2000WARE_DEVICE_ROOT" path="C:/ti/c2000/C2000Ware_26_01_00_00/device_support/f2838x"      scope="project"/>
+
+    <!-- Device support: bring in driverlib.h, device.h, device.c, codestart -->
+    <file action="copy" path="C:/ti/c2000/C2000Ware_26_01_00_00/device_support/f2838x/common/include/driverlib.h"                 targetDirectory="device"/>
+    <file action="copy" path="C:/ti/c2000/C2000Ware_26_01_00_00/device_support/f2838x/common/include/device.h"                    targetDirectory="device"/>
+    <file action="copy" path="C:/ti/c2000/C2000Ware_26_01_00_00/device_support/f2838x/common/source/device.c"                     targetDirectory="device"/>
+    <file action="copy" path="C:/ti/c2000/C2000Ware_26_01_00_00/device_support/f2838x/common/source/f2838x_codestartbranch.asm"   targetDirectory="device"/>
+
+    <!-- Static driverlib for CPU1 -->
+    <file action="link" path="C:/ti/c2000/C2000Ware_26_01_00_00/driverlib/f2838x/driverlib/ccs/Debug/driverlib.lib" targetDirectory=""/>
+
+    <!-- Linker command file: FLASH build for the production dual-core
+         deployment. -->
+    <file action="copy" path="./F2838x_FLASH_lnk_cpu1.cmd" targetDirectory=""/>
+
+    <!-- Target configuration -->
+    <file action="copy" path="./targetConfigs/TMS320F28388D.ccxml" targetDirectory="targetConfigs"/>
+
+    <!-- Application sources -->
+    <file action="copy" path="./src/main.c"             targetDirectory="src"/>
+    <file action="copy" path="./src/sysctl_init.c"      targetDirectory="src"/>
+    <file action="copy" path="./src/pwm_init.c"         targetDirectory="src"/>
+    <file action="copy" path="./src/adc_init.c"         targetDirectory="src"/>
+    <file action="copy" path="./src/isr_control.c"      targetDirectory="src"/>
+    <file action="copy" path="./src/foc_dq_pi.c"        targetDirectory="src"/>
+    <file action="copy" path="./src/svpwm.c"            targetDirectory="src"/>
+    <file action="copy" path="./src/clarke_park.c"      targetDirectory="src"/>
+    <file action="copy" path="./src/eth_init.c"         targetDirectory="src"/>
+    <file action="copy" path="./src/eth_rx_cmd.c"       targetDirectory="src"/>
+    <file action="copy" path="./src/eth_tx_telemetry.c" targetDirectory="src"/>
+    <file action="copy" path="./src/prot_safety.c"      targetDirectory="src"/>
+    <file action="copy" path="./src/util_fastmath.c"    targetDirectory="src"/>
+    <file action="copy" path="./src/eth_phy_bringup.c"  targetDirectory="src"/>
+
+    <!-- Application headers (so they show up in the project tree) -->
+    <file action="copy" path="./include/user_config.h"                       targetDirectory="include"/>
+    <file action="copy" path="./include/board_pinmap_boostxl_3phganinv.h"    targetDirectory="include"/>
+    <file action="copy" path="./include/adc_iface.h"                         targetDirectory="include"/>
+    <file action="copy" path="./include/pwm_iface.h"                         targetDirectory="include"/>
+    <file action="copy" path="./include/foc_dq_pi.h"                         targetDirectory="include"/>
+    <file action="copy" path="./include/svpwm.h"                             targetDirectory="include"/>
+    <file action="copy" path="./include/clarke_park.h"                       targetDirectory="include"/>
+    <file action="copy" path="./include/eth_proto.h"                         targetDirectory="include"/>
+    <file action="copy" path="./include/eth_iface.h"                         targetDirectory="include"/>
+    <file action="copy" path="./include/prot_safety.h"                       targetDirectory="include"/>
+    <file action="copy" path="./include/util_fastmath.h"                     targetDirectory="include"/>
+
+  </project>
+</projectSpec>

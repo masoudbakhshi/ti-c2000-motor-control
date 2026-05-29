@@ -26,6 +26,12 @@
 !*.syscfg
 !*.projectspec
 
+# 3b. Per-project header allow rule for foc_eth_drive. The project is
+#     hand-coded against driverlib without SysConfig, so its public
+#     surface lives in several .h files that the .c files depend on.
+#     Other projects keep the original header-free policy.
+!foc_eth_drive/**/*.h
+
 # 4. Explicitly re-deny generated outputs and SDK copies that may
 #    sit next to source files after a build or first import.
 syscfg/
@@ -61,3 +67,11 @@ adc_ethernet_scope/adc_scope_cm/f2838xif.c
 adc_ethernet_scope/adc_scope_cm/lwiplib.c
 adc_ethernet_scope/adc_scope_cm/pinout.c
 adc_ethernet_scope/adc_scope_cm/startup_ccs.c
+foc_eth_drive/foc_eth_drive_cm/device_cm.c
+foc_eth_drive/foc_eth_drive_cm/enet.c
+foc_eth_drive/foc_eth_drive_cm/f2838xif.c
+foc_eth_drive/foc_eth_drive_cm/lwiplib.c
+foc_eth_drive/foc_eth_drive_cm/pinout.c
+foc_eth_drive/foc_eth_drive_cm/startup_ccs.c
+foc_eth_drive/foc_eth_drive_cm/lwipopts.h
+foc_eth_drive/foc_eth_drive_cm/lwippools.h
